@@ -21,6 +21,13 @@ function App() {
           name={name}
           age={age}
           info={info}
+        // abc={"def"}
+        />
+        <InputTodo
+          name={name}
+          age={age}
+          info={info}
+          abc="def"
         />
       </div>
     </>
