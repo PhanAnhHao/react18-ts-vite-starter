@@ -10,6 +10,8 @@ function App() {
     address: "Hue"
   }
 
+  const todos = ["todo1", "todo2", "todo3", "todo4", "todo5", "todo6"]
+
   // {key: value}
   return (
     <>
@@ -21,14 +23,15 @@ function App() {
           name={name}
           age={age}
           info={info}
-        // abc={"def"}
         />
-        <InputTodo
-          name={name}
-          age={age}
-          info={info}
-          abc="def"
-        />
+
+        <ul>
+          {todos.map(item => {
+            return (<li>{item}</li>)
+          })}
+          {/* vòng map tạo ra 1 array mới.
+          sau này, nếu cần dùng vòng lặp với react thì dùng vòng map */}
+        </ul>
       </div>
     </>
   )
