@@ -3,7 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-import MyFirstComponent from './test/my.component'
+import MyFirstComponent from './test/my.component';
+import SecondComponent from './test/second.component';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,6 +18,7 @@ function App() {
 
         {/* cách viết ngắn gọn hơn */}
         <MyFirstComponent />
+        <SecondComponent />
 
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
