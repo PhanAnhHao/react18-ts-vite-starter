@@ -26,8 +26,10 @@ function App() {
         />
 
         <ul>
-          {todos.map(item => {
-            return (<li>{item}</li>)
+          {todos.map((item, index) => {
+            return (
+              <li key={index}>{item}</li>
+            )
           })}
           {/* vòng map tạo ra 1 array mới.
           sau này, nếu cần dùng vòng lặp với react thì dùng vòng map */}
