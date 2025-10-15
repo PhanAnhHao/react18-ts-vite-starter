@@ -3,24 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-
-// đầy đủ format - dễ đọc hơn
-const MyFirstComponent = () => {
-  return (
-    <div>
-      MyFirstComponent
-    </div>
-  )
-}
-
-// inline - ko recommend
-// const MyFirstComponent = () => <div>MyFirstComponent inline</div>
-
-// cũng ko recommend
-// const MyFirstComponent = () => {
-//   return <div>MyFirstComponent</div>
-// }
-
+import MyFirstComponent from './test/my.component'
 
 function App() {
   const [count, setCount] = useState(0)
