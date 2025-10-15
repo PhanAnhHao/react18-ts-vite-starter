@@ -3,12 +3,38 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+
+// đầy đủ format - dễ đọc hơn
+const MyFirstComponent = () => {
+  return (
+    <div>
+      MyFirstComponent
+    </div>
+  )
+}
+
+// inline - ko recommend
+// const MyFirstComponent = () => <div>MyFirstComponent inline</div>
+
+// cũng ko recommend
+// const MyFirstComponent = () => {
+//   return <div>MyFirstComponent</div>
+// }
+
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
       <div>
+
+        {/* ko khuyến kích viết mở tag và đóng tag -> dài dòng */}
+        {/* <MyFirstComponent></MyFirstComponent> */}
+
+        {/* cách viết ngắn gọn hơn */}
+        <MyFirstComponent />
+
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
