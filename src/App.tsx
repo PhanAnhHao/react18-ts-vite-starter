@@ -31,8 +31,6 @@ function App() {
               <li key={index}>{item}</li>
             )
           })}
-          {/* vòng map tạo ra 1 array mới.
-          sau này, nếu cần dùng vòng lặp với react thì dùng vòng map */}
         </ul>
       </div>
     </>
