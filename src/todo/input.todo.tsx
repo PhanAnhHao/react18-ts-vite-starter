@@ -13,15 +13,20 @@ export interface IProps {
     abc?: string; //optional
 }
 
+let count = 1;
+
 const InputTodo = (props: IProps) => {
     const { age, name } = props; // object destructuring
 
     const handleClick = () => {
-        alert('click me');
+        // alert('click me');
+        count += 1;
+        console.log("check new count: ", count);
     };
 
     return (
         <div>
+            <div>new count = {count}</div>
             <div>name = {name}</div>
             <div>age = {age}</div>
             <div>Add new todo</div>
