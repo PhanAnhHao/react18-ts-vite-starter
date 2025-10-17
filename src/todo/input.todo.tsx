@@ -13,29 +13,24 @@ export interface IProps {
         gender: string;
         address: string;
     };
-    abc?: string; //optional
-    handleTest: () => void;
-    handleTestValueInput: (v: string) => void;
+    listTodo: string[];
+    setListTodo: (v: string[]) => void;
 }
 
 const InputTodo = (props: IProps) => {
 
-    const { handleTestValueInput } = props;
+    const { listTodo, setListTodo } = props; // props của thằng con là state của thằng cha => thay đổi state => gdiện re-render
 
     const [todo, setTodo] = useState<string>("");
-    const [listTodo, setListTodo] = useState(
-        ["todo1", "todo2", "todo3", "todo4", "todo5", "todo6"]
-    );
 
     const handleClick = () => {
-        handleTestValueInput(todo);
-        // if (!todo) {
-        //     alert("empty todo");
-        //     return; // khi dùng keyword return(mà k return về 1 gtrị) thì nó sẽ thoát ra khỏi func này, ko dịch phần code phía dưới nữa
-        // }
-        // // alert('click me');
-        // setListTodo([...listTodo, todo]); // spread syntax
-        // setTodo("");
+        if (!todo) {
+            alert("empty todo");
+            return; // khi dùng keyword return(mà k return về 1 gtrị) thì nó sẽ thoát ra khỏi func này, ko dịch phần code phía dưới nữa
+        }
+        // alert('click me');
+        setListTodo([...listTodo, todo]); // spread syntax
+        setTodo("");
     };
 
     return (
@@ -51,15 +46,6 @@ const InputTodo = (props: IProps) => {
             />
             &nbsp; &nbsp; {/* HTML Entities - Non-breaking Space */}
             <button onClick={() => handleClick()}>Save</button>
-            <br />
-            <ul>
-                {listTodo.map((item, index) => {
-                    return (
-                        <li key={index}>{item}</li>
-                    )
-                })}
-            </ul>
-            {/* Thay đổi props hay thay đổi state sẽ khiến component re-render */}
         </div>
     )
 }

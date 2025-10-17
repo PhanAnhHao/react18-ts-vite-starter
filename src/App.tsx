@@ -1,4 +1,5 @@
 // import './App.css';
+import { useState } from 'react';
 import InputTodo from './todo/input.todo';
 
 function App() {
@@ -10,17 +11,10 @@ function App() {
     address: "Hue"
   }
 
-  const todos = ["todo1", "todo2", "todo3", "todo4", "todo5", "todo6"]
+  const [listTodo, setListTodo] = useState<string[]>(
+    ["todo1", "todo2", "todo3", "todo4", "todo5", "todo6"]
+  );
 
-  const handleTest = () => {
-    alert("handle test")
-  }
-
-  const handleTestValueInput = (name: string) => {
-    alert(`handle test value input = ${name}`)
-  }
-
-  // {key: value}
   return (
     <>
       <div className='parent' id='taolabomay'>
@@ -31,17 +25,19 @@ function App() {
           name={name}
           age={age}
           info={info}
-          handleTest={handleTest}
-          handleTestValueInput={handleTestValueInput}
+          listTodo={listTodo}
+          setListTodo={setListTodo}
         />
 
-        {/* <ul>
-          {todos.map((item, index) => {
+        <br />
+        <ul style={{ border: "1px solid green" }}>
+          {listTodo.map((item, index) => {
             return (
               <li key={index}>{item}</li>
             )
           })}
-        </ul> */}
+        </ul>
+        {/* Thay đổi props hay thay đổi state sẽ khiến component re-render */}
       </div>
     </>
   )
