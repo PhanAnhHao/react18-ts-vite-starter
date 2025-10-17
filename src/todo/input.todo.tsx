@@ -3,6 +3,9 @@
 // B1: Compile - dịch code: typescript => javascript (check type)
 // B2: run - chạy code
 
+import { useState } from "react";
+// use => hook
+
 export interface IProps {
     name: string;
     age: number;
@@ -13,29 +16,30 @@ export interface IProps {
     abc?: string; //optional
 }
 
-let count = 1;
-
 const InputTodo = (props: IProps) => {
     const { age, name } = props; // object destructuring
 
+    const [fullName, setFullName] = useState<string>("");
+
     const handleClick = () => {
         // alert('click me');
-        count += 1;
-        console.log("check new count: ", count);
     };
+
+    console.log(">>> Check fullName: ", fullName);
 
     return (
         <div>
-            <div>new count = {count}</div>
             <div>name = {name}</div>
             <div>age = {age}</div>
             <div>Add new todo</div>
             <input
                 type="text"
                 onChange={(event) => {
-                    console.log(event.target.value)
+                    // console.log(event.target.value)
+                    setFullName(event.target.value)
                 }}
             />
+            <div>{fullName}'s todo</div>
             &nbsp; &nbsp; {/* HTML Entities - Non-breaking Space */}
             <button onClick={() => handleClick()}>Save</button>
         </div>
