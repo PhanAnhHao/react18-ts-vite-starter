@@ -25,13 +25,13 @@ function App() {
           info={info}
         />
 
-        <ul>
+        {/* <ul>
           {todos.map((item, index) => {
             return (
               <li key={index}>{item}</li>
             )
           })}
-        </ul>
+        </ul> */}
       </div>
     </>
   )

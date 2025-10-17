@@ -17,31 +17,44 @@ export interface IProps {
 }
 
 const InputTodo = (props: IProps) => {
-    const { age, name } = props; // object destructuring
 
-    const [fullName, setFullName] = useState<string>("");
+    const [todo, setTodo] = useState<string>("");
+    const [listTodo, setListTodo] = useState(
+        ["todo1", "todo2", "todo3", "todo4", "todo5", "todo6"]
+    );
 
     const handleClick = () => {
+        if (!todo) {
+            alert("empty todo");
+            return; // khi dùng keyword return(mà k return về 1 gtrị) thì nó sẽ thoát ra khỏi func này, ko dịch phần code phía dưới nữa
+        }
         // alert('click me');
+        setListTodo([...listTodo, todo]); // spread syntax
+        setTodo("");
     };
 
-    console.log(">>> Check fullName: ", fullName);
-
     return (
-        <div>
-            <div>name = {name}</div>
-            <div>age = {age}</div>
+        <div style={{ border: "1px solid red" }}>
             <div>Add new todo</div>
             <input
+                value={todo}
                 type="text"
                 onChange={(event) => {
                     // console.log(event.target.value)
-                    setFullName(event.target.value)
+                    setTodo(event.target.value)
                 }}
             />
-            <div>{fullName}'s todo</div>
             &nbsp; &nbsp; {/* HTML Entities - Non-breaking Space */}
             <button onClick={() => handleClick()}>Save</button>
+            <br />
+            <ul>
+                {listTodo.map((item, index) => {
+                    return (
+                        <li key={index}>{item}</li>
+                    )
+                })}
+            </ul>
+            {/* Thay đổi props hay thay đổi state sẽ khiến component re-render */}
         </div>
     )
 }
