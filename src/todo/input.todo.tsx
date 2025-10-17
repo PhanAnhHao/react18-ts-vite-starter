@@ -14,9 +14,13 @@ export interface IProps {
         address: string;
     };
     abc?: string; //optional
+    handleTest: () => void;
+    handleTestValueInput: (v: string) => void;
 }
 
 const InputTodo = (props: IProps) => {
+
+    const { handleTestValueInput } = props;
 
     const [todo, setTodo] = useState<string>("");
     const [listTodo, setListTodo] = useState(
@@ -24,13 +28,14 @@ const InputTodo = (props: IProps) => {
     );
 
     const handleClick = () => {
-        if (!todo) {
-            alert("empty todo");
-            return; // khi dùng keyword return(mà k return về 1 gtrị) thì nó sẽ thoát ra khỏi func này, ko dịch phần code phía dưới nữa
-        }
-        // alert('click me');
-        setListTodo([...listTodo, todo]); // spread syntax
-        setTodo("");
+        handleTestValueInput(todo);
+        // if (!todo) {
+        //     alert("empty todo");
+        //     return; // khi dùng keyword return(mà k return về 1 gtrị) thì nó sẽ thoát ra khỏi func này, ko dịch phần code phía dưới nữa
+        // }
+        // // alert('click me');
+        // setListTodo([...listTodo, todo]); // spread syntax
+        // setTodo("");
     };
 
     return (

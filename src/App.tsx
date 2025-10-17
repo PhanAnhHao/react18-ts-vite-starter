@@ -12,6 +12,14 @@ function App() {
 
   const todos = ["todo1", "todo2", "todo3", "todo4", "todo5", "todo6"]
 
+  const handleTest = () => {
+    alert("handle test")
+  }
+
+  const handleTestValueInput = (name: string) => {
+    alert(`handle test value input = ${name}`)
+  }
+
   // {key: value}
   return (
     <>
@@ -23,6 +31,8 @@ function App() {
           name={name}
           age={age}
           info={info}
+          handleTest={handleTest}
+          handleTestValueInput={handleTestValueInput}
         />
 
         {/* <ul>
