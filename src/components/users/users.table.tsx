@@ -1,7 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import '../../styles/users.css';
 
+interface IUser {
+    email: string;
+    name: string;
+    address: string;
+    role: string;
+    isVerify: boolean;
+}
+
 const UsersTable = () => {
+
+    const [listUsers, setListUsers] = useState([]);
 
     // update
     useEffect(() => {
@@ -11,79 +21,78 @@ const UsersTable = () => {
     }, []);  //tất cả những logic nào muốn update cho component thì viết trong useEffect
 
     const getData = async () => {
+        const access_token = "";
+
         const res = await fetch(
-            "http://localhost:8000/api/v1/auth/login",
-            {
-                method: "POST",
-                body: JSON.stringify({
-                    username: "",
-                    password: ""
-                }),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }); // method mặc định của fetch là GET
-        const data = await res.json();
-
-        const access_token = ""
-
-        console.log(">>> Check data: ", data);
-
-        const res1 = await fetch(
             "http://localhost:8000/api/v1/users/all",
             {
                 headers: {
                     'Authorization': `Bearer ${access_token}`,
                     "Content-Type": "application/json",
                 },
-            });
+            }); // method mặc định của fetch là GET
 
-        const data1 = await res1.json();
-        console.log(">>> Check data1: ", data1);
+        const d = await res.json();
+        setListUsers(d.data.result);
     }
 
-    console.log(">>> check render"); //mounting
+    console.log(">>> check render: ", listUsers); //mounting
 
     return (
         <div>
-            <h2>HTML Table</h2>
+            <h2>Table Users</h2>
 
             <table>
-                <tr>
-                    <th>Company</th>
-                    <th>Contact</th>
-                    <th>Country</th>
-                </tr>
-                <tr>
-                    <td>Alfreds Futterkiste</td>
-                    <td>Maria Anders</td>
-                    <td>Germany</td>
-                </tr>
-                <tr>
-                    <td>Centro comercial Moctezuma</td>
-                    <td>Francisco Chang</td>
-                    <td>Mexico</td>
-                </tr>
-                <tr>
-                    <td>Ernst Handel</td>
-                    <td>Roland Mendel</td>
-                    <td>Austria</td>
-                </tr>
-                <tr>
-                    <td>Island Trading</td>
-                    <td>Helen Bennett</td>
-                    <td>UK</td>
-                </tr>
-                <tr>
-                    <td>Laughing Bacchus Winecellars</td>
-                    <td>Yoshi Tannamuri</td>
-                    <td>Canada</td>
-                </tr>
-                <tr>
-                    <td>Magazzini Alimentari Riuniti</td>
-                    <td>Giovanni Rovelli</td>
-                    <td>Italy</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <td>Email</td>
+                        <td>Name</td>
+                        <td>Address</td>
+                        <td>Role</td>
+                        <td>Verify?</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        listUsers.map((item: IUser, index) => {
+                            return (
+                                <tr key={index}>
+                                    <td>{item.email}</td>
+                                    <td>{item.name}</td>
+                                    <td>{item.address}</td>
+                                    <td>{item.role}</td>
+                                    <td>{item.isVerify === true ? "Verified" : "Not yet"}</td>
+                                    <td>
+                                        <button
+                                            style={{
+                                                backgroundColor: 'yellow',
+                                                border: "2px solid black",
+                                                padding: 8,
+                                                margin: 4,
+                                                borderRadius: 8
+                                            }}
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            style={{
+                                                backgroundColor: 'red',
+                                                border: "2px solid black",
+                                                padding: 8,
+                                                margin: 4,
+                                                borderRadius: 8
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
+
+                </tbody>
             </table>
         </div>
     );
