@@ -1,21 +1,87 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import {
   createBrowserRouter,
+  Outlet,
   RouterProvider,
+  Link
 } from "react-router-dom";
 import UsersPage from './screens/users.page.tsx';
-// import './index.css'
+// import './index.css';
+import { HomeOutlined, SolutionOutlined, TeamOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import { Menu } from 'antd';
+import TodoPage from './todo/todos.tsx';
+import { Footer } from 'antd/es/layout/layout';
+
+type MenuItem = Required<MenuProps>['items'][number];
+
+const items: MenuItem[] = [
+  {
+    label: <Link to={"/"}>Home</Link>,
+    key: 'home',
+    icon: <HomeOutlined />,
+  },
+  {
+    label: <Link to="/users">Manage Users</Link>,
+    key: 'users',
+    icon: <TeamOutlined />,
+  },
+  {
+    label: <Link to="/todo">Todo</Link>,
+    key: 'todo',
+    icon: <SolutionOutlined />,
+  },
+];
+
+const Header = () => {
+  const [current, setCurrent] = useState('home');
+
+  const onClick: MenuProps['onClick'] = (e) => {
+    console.log('click ', e);
+    setCurrent(e.key);
+  };
+
+  return (
+    <Menu
+      onClick={onClick}
+      selectedKeys={[current]}
+      mode="horizontal"
+      items={items}
+    />
+  );
+};
+
+const LayoutAdmin = () => {
+  return (
+    <div>
+      <Header />
+      <br />
+      <Outlet />
+      <Footer style={{ textAlign: 'center' }}>
+        Made in 2025 by PhAHao aka ChillFeel
+      </Footer>
+    </div>
+  )
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
-  },
-  {
-    path: "/users",
-    element: <UsersPage />,
+    // element: <App />,
+    element: <LayoutAdmin />,
+    children: [
+      { index: true, element: <App /> },
+      {
+        path: "users",
+        element: <UsersPage />,
+      },
+      {
+        path: "todo",
+        element: <TodoPage />,
+      },
+    ]
   },
   {
     path: "/tracks",

@@ -34,7 +34,13 @@ const UsersTable = () => {
             }); // method mặc định của fetch là GET
 
         const d = await res.json();
-        setListUsers(d.data.result);
+        console.log(">>> check d?.data: ", d.data);
+        if (d && d?.data) {
+            setListUsers(d.data.result);
+        } else {
+            setListUsers([]);
+        }
+
     }
 
     console.log(">>> check render: ", listUsers); //mounting
@@ -54,16 +60,18 @@ const UsersTable = () => {
                         <td>Action</td>
                     </tr>
                 </thead>
-                <tbody>
-                    {
-                        listUsers.map((item: IUser, index) => {
-                            return (
+                {
+                    listUsers.length === 0 ? (
+                        <div>no data yet</div>
+                    ) : (
+                        <tbody>
+                            {listUsers.map((item: IUser, index) => (
                                 <tr key={item._id}>
                                     <td>{item.email}</td>
                                     <td>{item.name}</td>
                                     <td>{item.address}</td>
                                     <td>{item.role}</td>
-                                    <td>{item.isVerify === true ? "Verified" : "Not yet"}</td>
+                                    <td>{item.isVerify ? "Verified" : "Not yet"}</td>
                                     <td>
                                         <button
                                             style={{
@@ -89,11 +97,11 @@ const UsersTable = () => {
                                         </button>
                                     </td>
                                 </tr>
-                            )
-                        })
-                    }
+                            ))}
+                        </tbody>
+                    )
+                }
 
-                </tbody>
             </table>
         </div>
     );
