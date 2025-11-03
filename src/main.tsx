@@ -14,6 +14,7 @@ import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import TodoPage from './todo/todos.tsx';
 import { Footer } from 'antd/es/layout/layout';
+// import './App.scss';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
