@@ -112,6 +112,7 @@ const UpdateUserModal = (props: IProps) => {
                     placeholder="Password"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
+                    disabled
                 />
                 <Input
                     placeholder="Age"

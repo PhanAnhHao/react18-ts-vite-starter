@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 // import '../../styles/users.css';
-import { Table, Tag, Button } from 'antd';
+import { Table, Tag, Button, notification } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { PlusOutlined } from '@ant-design/icons';
 import CreateUserModal from './create.user.model';
@@ -49,6 +49,9 @@ const UsersTable = () => {
         if (d && d?.data) {
             setListUsers(d.data.result);
         } else {
+            notification.error({
+                message: JSON.stringify(d.message)
+            });
             setListUsers([]);
         }
 
