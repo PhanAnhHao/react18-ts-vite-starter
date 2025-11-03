@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import '../../styles/users.css';
+// import '../../styles/users.css';
+import { Space, Table, Tag } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
 
 interface IUser {
     _id: string;
@@ -44,11 +46,58 @@ const UsersTable = () => {
 
     // console.log(">>> check render: ", listUsers); //mounting
 
+    const columns: ColumnsType<IUser> = [
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            render(value, record, index) {
+                console.log({ value, record, index })
+                return (
+                    <a href="">{record.email}</a>
+                )
+            },
+        },
+        {
+            title: 'Name',
+            dataIndex: 'name',
+        },
+        {
+            title: 'Address',
+            dataIndex: 'address',
+        },
+        {
+            title: 'Role',
+            dataIndex: 'role',
+        },
+        {
+            title: 'Verify?',
+            dataIndex: 'isVerify',
+            render: (_, { isVerify }) => (
+                <>
+                    {
+                        isVerify == true
+                            ?
+                            <Tag color={"green"}>
+                                Verified
+                            </Tag>
+                            :
+                            <Tag color={"red"}>
+                                Not yet
+                            </Tag>
+                    }
+                </>
+            ),
+        },
+    ]
+
     return (
         <div>
             <h2>Table Users</h2>
-
-            <table>
+            <Table
+                columns={columns}
+                dataSource={listUsers}
+            />
+            {/* <table>
                 <thead>
                     <tr>
                         <td>Email</td>
@@ -101,7 +150,7 @@ const UsersTable = () => {
                     )
                 }
 
-            </table>
+            </table> */}
         </div>
     );
 };
