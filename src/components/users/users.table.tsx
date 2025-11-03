@@ -57,8 +57,23 @@ const UsersTable = () => {
 
     };
 
-    const confirm = () => {
-        message.success('Click on Yes');
+    const confirm = async (user: IUser) => {
+        const res = await fetch(
+            `http://localhost:8000/api/v1/users/${user._id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    'Authorization': `Bearer ${access_token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+        const d = await res.json();
+        if (d.data) {
+            message.success('Xoá thành công');
+            await getData();
+        } else {
+            message.error("Lỗi");
+        }
     };
 
     const columns: ColumnsType<IUser> = [
@@ -122,7 +137,7 @@ const UsersTable = () => {
                         <Popconfirm
                             title="Delete this user"
                             description={`Are you sure to delete "${record.name}"?`}
-                            onConfirm={confirm}
+                            onConfirm={() => confirm(record)}
                             okText="Yes"
                             cancelText="No"
                         >
