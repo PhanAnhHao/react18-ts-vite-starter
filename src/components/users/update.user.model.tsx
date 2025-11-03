@@ -1,16 +1,24 @@
 import { Input, Modal, notification } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { IUser } from "./users.table";
 
 interface IProps {
     access_token: string;
     getData: any;
     isUpdateModalOpen: boolean;
     setIsUpdateModalOpen: (v: boolean) => void;
+    dataUpdate: null | IUser;
+    setDataUpdate: (v: null | IUser) => void;
 }
 
 const UpdateUserModal = (props: IProps) => {
 
-    const { access_token, getData, isUpdateModalOpen, setIsUpdateModalOpen } = props;
+    const {
+        access_token,
+        getData,
+        isUpdateModalOpen, setIsUpdateModalOpen,
+        dataUpdate, setDataUpdate
+    } = props;
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -19,6 +27,18 @@ const UpdateUserModal = (props: IProps) => {
     const [gender, setGender] = useState("");
     const [address, setAddress] = useState("");
     const [role, setRole] = useState("");
+
+    useEffect(() => {
+        if (dataUpdate) {
+            setName(dataUpdate.name);
+            setEmail(dataUpdate.email);
+            setPassword(dataUpdate.password);
+            setAge(dataUpdate.age);
+            setGender(dataUpdate.gender);
+            setAddress(dataUpdate.address);
+            setRole(dataUpdate.role);
+        }
+    }, [dataUpdate]);
 
     const handleOk = async () => {
         const data = {
@@ -55,6 +75,7 @@ const UpdateUserModal = (props: IProps) => {
 
     const handleCloseModal = () => {
         setIsUpdateModalOpen(false);
+        setDataUpdate(null);
         setName("");
         setEmail("");
         setPassword("");

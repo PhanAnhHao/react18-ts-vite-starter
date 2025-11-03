@@ -6,13 +6,16 @@ import { PlusOutlined } from '@ant-design/icons';
 import CreateUserModal from './create.user.model';
 import UpdateUserModal from './update.user.model';
 
-interface IUser {
+export interface IUser {
     _id: string;
     email: string;
     name: string;
     address: string;
     role: string;
     isVerify: boolean;
+    gender: string;
+    password: string;
+    age: string;
 };
 
 const UsersTable = () => {
@@ -21,6 +24,8 @@ const UsersTable = () => {
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
+    const [dataUpdate, setDataUpdate] = useState<null | IUser>(null);
 
     const access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0b2tlbiBsb2dpbiIsImlzcyI6ImZyb20gc2VydmVyIiwiX2lkIjoiNjhmMjQ0MTNjN2FlNzEwODlmNjRmY2RhIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJhZGRyZXNzIjoiVmlldE5hbSIsImlzVmVyaWZ5Ijp0cnVlLCJuYW1lIjoiSSdtIGFkbWluIiwidHlwZSI6IlNZU1RFTSIsInJvbGUiOiJBRE1JTiIsImdlbmRlciI6Ik1BTEUiLCJhZ2UiOjY5LCJpYXQiOjE3NjIxNTEzNDQsImV4cCI6MTg0ODU1MTM0NH0.AyBt3cIBspfpwyYniqJnRowxXy7SBeVjLCnZzikSIc8";
 
@@ -101,6 +106,7 @@ const UsersTable = () => {
                                 marginRight: 8,
                             }}
                             onClick={() => {
+                                setDataUpdate(record);
                                 setIsUpdateModalOpen(true);
                             }}
                         >
@@ -153,6 +159,8 @@ const UsersTable = () => {
                 getData={getData}
                 isUpdateModalOpen={isUpdateModalOpen}
                 setIsUpdateModalOpen={setIsUpdateModalOpen}
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
             />
 
         </div>
