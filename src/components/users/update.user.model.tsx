@@ -41,35 +41,38 @@ const UpdateUserModal = (props: IProps) => {
     }, [dataUpdate]);
 
     const handleOk = async () => {
-        const data = {
-            name, email, password, age, gender, address, role
-        };
-        const res = await fetch(
-            "http://localhost:8000/api/v1/users",
-            {
-                method: "POST",
-                headers: {
-                    'Authorization': `Bearer ${access_token}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ ...data })
-            });
-
-        const d = await res.json();
-        if (d?.data) {
-            // success
-            await getData();
-            notification.success({
-                message: "Cập nhật thành công",
-            });
-            handleCloseModal();
-        } else {
-            d.message.map((errorMessage: any) => {
-                notification.error({
-                    message: "Có lỗi xảy ra",
-                    description: JSON.stringify(errorMessage)
+        if (dataUpdate) {
+            const data = {
+                _id: dataUpdate._id,
+                name, email, age, gender, address, role
+            };
+            const res = await fetch(
+                "http://localhost:8000/api/v1/users",
+                {
+                    method: "PATCH",
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ ...data })
                 });
-            });
+
+            const d = await res.json();
+            if (d?.data) {
+                // success
+                await getData();
+                notification.success({
+                    message: "Cập nhật thành công",
+                });
+                handleCloseModal();
+            } else {
+                d.message.map((errorMessage: any) => {
+                    notification.error({
+                        message: "Có lỗi xảy ra",
+                        description: JSON.stringify(errorMessage)
+                    });
+                });
+            }
         }
     };
 
