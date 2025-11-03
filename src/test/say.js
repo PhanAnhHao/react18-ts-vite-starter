@@ -8,4 +8,4 @@ function sayBye(user) {
 
 export default sayHi;
 
-export { sayBye }; // a list of exported variables
+export { sayBye };

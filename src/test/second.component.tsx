@@ -9,11 +9,10 @@ const SecondComponent = () => {
         regionId: 75
     };
     const arr = [1, 2, 3, true, { sound: "hehehe" }];
-    const testBoolean = true; // boolean => render nothing
-    const testNull = null; // null => render nothing
-    const testUndifine = undefined; // undefined => render nothing
+    const testBoolean = true;
+    const testNull = null;
+    const testUndifine = undefined;
 
-    // jsx: html + js => 1 block - là cú pháp viết trong hàm return này
     return (
         <div>
             <h1 style={

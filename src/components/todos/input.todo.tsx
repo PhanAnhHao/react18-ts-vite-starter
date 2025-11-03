@@ -1,10 +1,4 @@
-
-// typescript = javascript + check type/gợi ý code
-// B1: Compile - dịch code: typescript => javascript (check type)
-// B2: run - chạy code
-
 import { useState } from "react";
-// use => hook
 
 export interface IProps {
     name: string;
@@ -19,17 +13,16 @@ export interface IProps {
 
 const InputTodo = (props: IProps) => {
 
-    const { listTodo, setListTodo } = props; // props của thằng con là state của thằng cha => thay đổi state => gdiện re-render
+    const { listTodo, setListTodo } = props;
 
     const [todo, setTodo] = useState<string>("");
 
     const handleClick = () => {
         if (!todo) {
             alert("empty todo");
-            return; // khi dùng keyword return(mà k return về 1 gtrị) thì nó sẽ thoát ra khỏi func này, ko dịch phần code phía dưới nữa
+            return;
         }
-        // alert('click me');
-        setListTodo([...listTodo, todo]); // spread syntax
+        setListTodo([...listTodo, todo]);
         setTodo("");
     };
 
@@ -40,11 +33,10 @@ const InputTodo = (props: IProps) => {
                 value={todo}
                 type="text"
                 onChange={(event) => {
-                    // console.log(event.target.value)
                     setTodo(event.target.value)
                 }}
             />
-            &nbsp; &nbsp; {/* HTML Entities - Non-breaking Space */}
+            &nbsp; &nbsp;
             <button onClick={() => handleClick()}>Save</button>
         </div>
     )
