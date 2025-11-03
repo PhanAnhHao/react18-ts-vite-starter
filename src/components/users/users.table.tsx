@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 // import '../../styles/users.css';
-import { Space, Table, Tag } from 'antd';
+import { Space, Table, Tag, Button, Modal } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { PlusOutlined } from '@ant-design/icons';
 
 interface IUser {
     _id: string;
@@ -15,6 +16,7 @@ interface IUser {
 const UsersTable = () => {
 
     const [listUsers, setListUsers] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // update
     useEffect(() => {
@@ -51,7 +53,7 @@ const UsersTable = () => {
             title: 'Email',
             dataIndex: 'email',
             render(value, record, index) {
-                console.log({ value, record, index })
+                // console.log({ value, record, index });
                 return (
                     <a href="">{record.email}</a>
                 )
@@ -88,69 +90,49 @@ const UsersTable = () => {
                 </>
             ),
         },
-    ]
+    ];
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <div>
-            <h2>Table Users</h2>
+            <div style={{
+                display: "flex",
+                justifyContent: "space-between",
+                margin: "4px 16px"
+            }}>
+                <h2>Table Users</h2>
+                <Button
+                    type="primary"
+                    onClick={showModal}
+                    icon={<PlusOutlined />}>
+                    Add new
+                </Button>
+            </div>
             <Table
                 columns={columns}
                 dataSource={listUsers}
+                rowKey={"_id"}
             />
-            {/* <table>
-                <thead>
-                    <tr>
-                        <td>Email</td>
-                        <td>Name</td>
-                        <td>Address</td>
-                        <td>Role</td>
-                        <td>Verify?</td>
-                        <td>Action</td>
-                    </tr>
-                </thead>
-                {
-                    listUsers.length === 0 ? (
-                        <div>no data yet</div>
-                    ) : (
-                        <tbody>
-                            {listUsers.map((item: IUser, index) => (
-                                <tr key={item._id}>
-                                    <td>{item.email}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.address}</td>
-                                    <td>{item.role}</td>
-                                    <td>{item.isVerify ? "Verified" : "Not yet"}</td>
-                                    <td>
-                                        <button
-                                            style={{
-                                                backgroundColor: 'yellow',
-                                                border: "2px solid black",
-                                                padding: 8,
-                                                margin: 4,
-                                                borderRadius: 8
-                                            }}
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            style={{
-                                                backgroundColor: 'red',
-                                                border: "2px solid black",
-                                                padding: 8,
-                                                margin: 4,
-                                                borderRadius: 8
-                                            }}
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    )
-                }
-
-            </table> */}
+            <Modal
+                title="Basic Modal"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+            </Modal>
         </div>
     );
 };
