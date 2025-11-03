@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 // import '../../styles/users.css';
-import { Space, Table, Tag, Button, Modal } from 'antd';
+import { Space, Table, Tag, Button, Modal, Input } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { PlusOutlined } from '@ant-design/icons';
 
@@ -16,7 +16,16 @@ interface IUser {
 const UsersTable = () => {
 
     const [listUsers, setListUsers] = useState([]);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [age, setAge] = useState("");
+    const [gender, setGender] = useState("");
+    const [address, setAddress] = useState("");
+    const [role, setRole] = useState("");
 
     // update
     useEffect(() => {
@@ -97,7 +106,11 @@ const UsersTable = () => {
     };
 
     const handleOk = () => {
-        setIsModalOpen(false);
+        const data = {
+            name, email, password, age, gender, address, role
+        };
+        console.log({ data });
+        // setIsModalOpen(false);
     };
 
     const handleCancel = () => {
@@ -125,13 +138,55 @@ const UsersTable = () => {
                 rowKey={"_id"}
             />
             <Modal
-                title="Basic Modal"
+                title="Add new user"
                 open={isModalOpen}
                 onOk={handleOk}
-                onCancel={handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+                onCancel={handleCancel}
+                maskClosable={false}
+            >
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 16
+                }}>
+                    <Input
+                        placeholder="Name"
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                    />
+                    <Input
+                        placeholder="Email"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                    />
+                    <Input
+                        placeholder="Password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                    />
+                    <Input
+                        placeholder="Age"
+                        value={age}
+                        onChange={(event) => setAge(event.target.value)}
+                    />
+                    <Input
+                        placeholder="Gender"
+                        value={gender}
+                        onChange={(event) => setGender(event.target.value)}
+                    />
+                    <Input
+                        placeholder="Address"
+                        value={address}
+                        onChange={(event) => setAddress(event.target.value)}
+                    />
+                    <Input
+                        placeholder="Role"
+                        value={role}
+                        onChange={(event) => setRole(event.target.value)}
+                    />
+                </div>
+
+
             </Modal>
         </div>
     );
