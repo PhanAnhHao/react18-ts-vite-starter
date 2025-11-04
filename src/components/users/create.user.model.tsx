@@ -1,13 +1,12 @@
 import {
     Form,
-    FormProps,
     Input,
     InputNumber,
     Modal,
     notification,
     Select
 } from "antd";
-import { Option } from "antd/es/mentions";
+const { Option } = Select;
 
 interface IProps {
     access_token: string;
